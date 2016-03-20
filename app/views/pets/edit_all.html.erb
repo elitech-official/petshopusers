@@ -1,0 +1,25 @@
+<%= form_tag update_all_pets_path, validate: true, class: "form-inline" do |f|%>
+<% @pets.each do |pet| %>
+<div class="col-xs-12">
+	<%= fields_for "pets[#{pet.id}]", pet do |pet_item| %>
+	<div class="form-group">
+		<%= pet_item.label :name%>
+		<%= pet_item.text_field :name %>
+	</div>
+	<div class="form-group">
+		<%= pet_item.label :age %>
+		<%= pet_item.number_field :age %>
+	</div>
+	<div class="form-group">
+		<%= pet_item.label :color %>
+		<%= pet_item.text_field :color %>
+	</div>
+	<div class="form-group">
+		<%= pet_item.label :pet_type%>
+		<%= pet_item.select( :pet_type, options_for_select(Pet.all.collect{ |p| [p.pet_type, p.pet_type] }.uniq))%>
+	</div>
+	<% end %>
+</div>
+<% end %>
+<%= submit_tag "Submit" %>
+<% end %>

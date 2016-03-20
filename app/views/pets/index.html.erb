@@ -1,0 +1,29 @@
+<% if @pets.count > 0 %>
+
+
+<div class="col-xs-12">
+	<table class="index_table">
+		<tr>
+			<th> Name </th>
+			<th> Type  </th>
+			<th> Color </th>
+			<th> Age </th>
+		</tr>
+	<% @pets.each do |pet|%>
+		<tr>
+		  <td> <%= pet.name %> </td>
+		  <td> <%= pet.pet_type %> </td>
+		  <td> <%= pet.color %> </td>
+		  <td> <%= pet.age %> </td>
+		</tr>
+	<% end %>
+	
+	<%= link_to "Edit pets", edit_all_pets_path(id: params[:user_id]), class: "btn btn-primary"%>
+	<%= link_to "Back", users_path(:page => params[:page]), class: "btn btn-primary" %>
+</div>
+
+<% else %>
+<h1> User has no pets! </h1>
+<%= link_to "Back", users_path(:page => params[:page]), class: "btn btn-primary" %>
+	
+<% end %>

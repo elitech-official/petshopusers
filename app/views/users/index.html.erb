@@ -1,0 +1,39 @@
+<div class="col-xs-12 user-index-container">
+	<h3> Filter </h3>
+	<%= search_form_for @search do |f| %>
+	<%= f.condition_fields do |c| %>
+	<div class="field">
+		<%= c.attribute_fields do |a| %>
+		<%= a.attribute_select %>
+		<% end %>
+		<%= c.predicate_select %>
+		<%= c.value_fields do |v| %>
+		<%= v.text_field :value %>
+		<% end %>
+	</div>
+	<% end %>
+	<div class="actions">
+		<%= f.submit "Search", class: "btn btn-primary" %>
+		<%= link_to 'Clear Filters', users_path, class: "btn btn-primary" %>
+	</div>
+
+	<% end %>
+	<table class="index_table">
+		<tr>
+			<th><%= sort_link(@search, :name, "Username") %></th>
+			<th><%= sort_link(@search, :email, "Email") %></th>
+			<th><%= sort_link(@search, :age, "Age") %></th>
+			<th><%= sort_link(@search, :sex, "Sex") %></th>
+		</tr>
+		<% @users.each do |user|%>
+		<tr>
+			<td> <%= user.name %> </td>
+			<td> <%= user.email %> </td>
+			<td> <%= user.age %> </td>
+			<td> <%= user.sex %> </td>
+			<td> <%= link_to "Pets", user_pets_path(user, :page => params[:page]), class: "btn btn-primary"%> <td> <%= link_to "Edit user", edit_user_path(user), class: "btn btn-warning"%> <td> <%= link_to "Delete", user_path(user), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger"%> </td>
+		</tr>
+		<% end %>
+	</table>
+	<%= will_paginate @users %>
+</div>
